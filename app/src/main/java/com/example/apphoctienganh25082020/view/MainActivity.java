@@ -46,13 +46,21 @@ public class MainActivity extends AppCompatActivity {
 //        mWordViewModel.insertWord("Four","Bốn", MemorizedEnum.FORGOT);
 
         // 3 : Toggle Word
-        mWordViewModel.getWordMemorized().observe(this, new Observer<ApiResponse<List<Word>>>() {
+//        mWordViewModel.getWordMemorized().observe(this, new Observer<ApiResponse<List<Word>>>() {
+//            @Override
+//            public void onChanged(ApiResponse<List<Word>> listApiResponse) {
+//                Log.d("BBB",listApiResponse.toString());
+//            }
+//        });
+//
+//        mWordViewModel.toggleWord(5,MemorizedEnum.MEMORIZED);
+        // 4 : Delete Word
+        mWordViewModel.getWordDeleted().observe(this, new Observer<ApiResponse<List<Word>>>() {
             @Override
             public void onChanged(ApiResponse<List<Word>> listApiResponse) {
                 Log.d("BBB",listApiResponse.toString());
             }
         });
-
-        mWordViewModel.toggleWord(5,MemorizedEnum.MEMORIZED);
+        mWordViewModel.deleteWord(4);
     }
 }

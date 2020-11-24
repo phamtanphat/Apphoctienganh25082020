@@ -33,4 +33,10 @@ public interface ApiRequest {
             @Field("id") Integer id ,
             @Field("ismemorized")Integer ismemorized
     );
+
+    @FormUrlEncoded
+    @POST("apituvung2508/delete.php")
+    Maybe<ApiResponse<List<Word>>> deleteWord(
+            @Field("id") Integer id
+    );
 }

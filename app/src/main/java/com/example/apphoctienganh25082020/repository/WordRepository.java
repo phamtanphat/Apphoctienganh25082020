@@ -34,4 +34,8 @@ public class WordRepository {
     public Maybe<ApiResponse<List<Word>>> toggleWord(Integer id, MemorizedEnum memorizedEnum){
         return  mApiRequest.toggleWord(id, memorizedEnum.getValue());
     }
+
+    public Maybe<ApiResponse<List<Word>>> deleteWord(Integer id){
+        return  mApiRequest.deleteWord(id);
+    }
 }

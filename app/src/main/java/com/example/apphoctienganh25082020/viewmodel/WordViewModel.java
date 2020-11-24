@@ -24,11 +24,13 @@ public class WordViewModel extends ViewModel {
     private MutableLiveData<ApiResponse<List<Word>>> mWords;
     private MutableLiveData<ApiResponse<List<Word>>> mWordInsert;
     private MutableLiveData<ApiResponse<List<Word>>> mWordMemorized;
+    private MutableLiveData<ApiResponse<List<Word>>> mWordDelete;
 
     public WordViewModel() {
         mWords = new MutableLiveData<>();
         mWordInsert = new MutableLiveData<>();
         mWordMemorized = new MutableLiveData<>();
+        mWordDelete = new MutableLiveData<>();
         mWordRepository = WordRepository.getInstance();
     }
 
@@ -123,5 +125,33 @@ public class WordViewModel extends ViewModel {
     public LiveData<ApiResponse<List<Word>>> getWordMemorized(){
         return mWordMemorized;
     }
+    public void deleteWord(Integer id ){
+        mWordRepository.deleteWord(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MaybeObserver<ApiResponse<List<Word>>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull ApiResponse<List<Word>> listApiResponse) {
+                        mWordDelete.setValue(listApiResponse);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.d("BBB",e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+    public LiveData<ApiResponse<List<Word>>> getWordDeleted(){
+        return mWordDelete;
+    }
 }
