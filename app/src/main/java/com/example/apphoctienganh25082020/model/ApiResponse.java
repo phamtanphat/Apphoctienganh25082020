@@ -4,13 +4,13 @@ public class ApiResponse {
     private Integer totalpage;
     private String currentpage;
     private Boolean success;
-    private Object message;
+    private String message;
     private List<Datum> data = null;
 
     public ApiResponse() {
     }
 
-    public ApiResponse(Integer totalpage, String currentpage, Boolean success, Object message, List<Datum> data) {
+    public ApiResponse(Integer totalpage, String currentpage, Boolean success, String message, List<Datum> data) {
         super();
         this.totalpage = totalpage;
         this.currentpage = currentpage;
@@ -43,11 +43,11 @@ public class ApiResponse {
         this.success = success;
     }
 
-    public Object getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(Object message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
