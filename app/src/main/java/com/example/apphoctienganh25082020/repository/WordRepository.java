@@ -2,6 +2,7 @@ package com.example.apphoctienganh25082020.repository;
 
 import com.example.apphoctienganh25082020.api.ApiRequest;
 import com.example.apphoctienganh25082020.api.RetrofitInit;
+import com.example.apphoctienganh25082020.enums.MemorizedEnum;
 import com.example.apphoctienganh25082020.model.ApiResponse;
 import com.example.apphoctienganh25082020.model.Word;
 
@@ -24,5 +25,9 @@ public class WordRepository {
 
     public Maybe<ApiResponse<List<Word>>> getWords(Integer page, Integer numitems){
         return  mApiRequest.getWord(page,numitems);
+    }
+
+    public Maybe<ApiResponse<List<Word>>> insertWord(String en , String vn , MemorizedEnum memorizedEnum){
+        return  mApiRequest.insertWord(en,vn, memorizedEnum.getValue());
     }
 }

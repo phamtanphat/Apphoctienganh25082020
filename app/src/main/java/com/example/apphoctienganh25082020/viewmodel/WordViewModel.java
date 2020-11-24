@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.apphoctienganh25082020.enums.MemorizedEnum;
 import com.example.apphoctienganh25082020.model.ApiResponse;
 import com.example.apphoctienganh25082020.model.Word;
 import com.example.apphoctienganh25082020.repository.WordRepository;
@@ -21,9 +22,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class WordViewModel extends ViewModel {
     private WordRepository mWordRepository;
     private MutableLiveData<ApiResponse<List<Word>>> mWords;
+    private MutableLiveData<ApiResponse<List<Word>>> mWordInsert;
 
     public WordViewModel() {
         mWords = new MutableLiveData<>();
+        mWordInsert = new MutableLiveData<>();
         mWordRepository = WordRepository.getInstance();
     }
 
@@ -56,5 +59,36 @@ public class WordViewModel extends ViewModel {
 
     public LiveData<ApiResponse<List<Word>>> getResponseWords(){
         return mWords;
+    }
+
+    public void insertWord(String en , String vn , MemorizedEnum memorizedEnum){
+        mWordRepository.insertWord(en , vn , memorizedEnum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MaybeObserver<ApiResponse<List<Word>>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull ApiResponse<List<Word>> listApiResponse) {
+                        mWordInsert.setValue(listApiResponse);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.d("BBB",e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public LiveData<ApiResponse<List<Word>>> getDataWordInsert(){
+        return mWordInsert;
     }
 }

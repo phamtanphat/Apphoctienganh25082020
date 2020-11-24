@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.apphoctienganh25082020.R;
+import com.example.apphoctienganh25082020.enums.MemorizedEnum;
 import com.example.apphoctienganh25082020.model.ApiResponse;
 import com.example.apphoctienganh25082020.model.Word;
 import com.example.apphoctienganh25082020.viewmodel.WordViewModel;
@@ -24,13 +25,24 @@ public class MainActivity extends AppCompatActivity {
         mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
 
         // 1 : Fetch Words
-        mWordViewModel.getResponseWords().observe(this, new Observer<ApiResponse<List<Word>>>() {
+//        mWordViewModel.getResponseWords().observe(this, new Observer<ApiResponse<List<Word>>>() {
+//            @Override
+//            public void onChanged(ApiResponse<List<Word>> listApiResponse) {
+//                Log.d("BBB",listApiResponse.getData().get(0).getIsmemorized());
+//            }
+//        });
+//
+//        mWordViewModel.fetchWords(1, 2);
+
+        // 2 : Insert word
+
+        mWordViewModel.getDataWordInsert().observe(this, new Observer<ApiResponse<List<Word>>>() {
             @Override
             public void onChanged(ApiResponse<List<Word>> listApiResponse) {
-                Log.d("BBB",listApiResponse.toString());
+                Log.d("BBB",listApiResponse.getData().get(0).getIsmemorized());
             }
         });
 
-        mWordViewModel.fetchWords(1, 2);
+        mWordViewModel.insertWord("Four","Bốn", MemorizedEnum.FORGOT);
     }
 }
