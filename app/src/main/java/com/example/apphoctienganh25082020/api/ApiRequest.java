@@ -26,4 +26,11 @@ public interface ApiRequest {
                 @Field("vn") String vn ,
                 @Field("ismemorized")Integer ismemorized
             );
+
+    @FormUrlEncoded
+    @POST("apituvung2508/update.php")
+    Maybe<ApiResponse<List<Word>>> toggleWord(
+            @Field("id") Integer id ,
+            @Field("ismemorized")Integer ismemorized
+    );
 }

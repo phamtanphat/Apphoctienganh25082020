@@ -23,10 +23,12 @@ public class WordViewModel extends ViewModel {
     private WordRepository mWordRepository;
     private MutableLiveData<ApiResponse<List<Word>>> mWords;
     private MutableLiveData<ApiResponse<List<Word>>> mWordInsert;
+    private MutableLiveData<ApiResponse<List<Word>>> mWordMemorized;
 
     public WordViewModel() {
         mWords = new MutableLiveData<>();
         mWordInsert = new MutableLiveData<>();
+        mWordMemorized = new MutableLiveData<>();
         mWordRepository = WordRepository.getInstance();
     }
 
@@ -91,4 +93,35 @@ public class WordViewModel extends ViewModel {
     public LiveData<ApiResponse<List<Word>>> getDataWordInsert(){
         return mWordInsert;
     }
+
+    public void toggleWord(Integer id , MemorizedEnum memorizedEnum){
+        mWordRepository.toggleWord(id , memorizedEnum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MaybeObserver<ApiResponse<List<Word>>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull ApiResponse<List<Word>> listApiResponse) {
+                        mWordMemorized.setValue(listApiResponse);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.d("BBB",e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+    public LiveData<ApiResponse<List<Word>>> getWordMemorized(){
+        return mWordMemorized;
+    }
+
 }

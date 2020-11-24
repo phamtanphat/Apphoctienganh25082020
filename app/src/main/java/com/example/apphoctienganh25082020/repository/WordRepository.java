@@ -30,4 +30,8 @@ public class WordRepository {
     public Maybe<ApiResponse<List<Word>>> insertWord(String en , String vn , MemorizedEnum memorizedEnum){
         return  mApiRequest.insertWord(en,vn, memorizedEnum.getValue());
     }
+
+    public Maybe<ApiResponse<List<Word>>> toggleWord(Integer id, MemorizedEnum memorizedEnum){
+        return  mApiRequest.toggleWord(id, memorizedEnum.getValue());
+    }
 }
