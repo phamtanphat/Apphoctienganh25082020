@@ -1,10 +1,15 @@
 package com.example.apphoctienganh25082020.api;
 
+import com.example.apphoctienganh25082020.model.ApiResponse;
+
 import io.reactivex.rxjava3.core.Maybe;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface ApiRequest {
-//?page=1&numitems=2
     @GET("word.php")
-    Maybe<>
+    Maybe<ApiResponse> getWord(
+                @Query("page") Integer page ,
+                @Query("numitems") Integer numitems
+            );
 }

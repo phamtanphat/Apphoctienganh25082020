@@ -1,16 +1,18 @@
 package com.example.apphoctienganh25082020.model;
 
-public class ApiResponse {
+import java.util.List;
+
+public class ApiResponse<T> {
     private Integer totalpage;
     private String currentpage;
     private Boolean success;
     private String message;
-    private List<Datum> data = null;
+    private T data = null;
 
     public ApiResponse() {
     }
 
-    public ApiResponse(Integer totalpage, String currentpage, Boolean success, String message, List<Datum> data) {
+    public ApiResponse(Integer totalpage, String currentpage, Boolean success, String message, T data) {
         super();
         this.totalpage = totalpage;
         this.currentpage = currentpage;
@@ -51,11 +53,11 @@ public class ApiResponse {
         this.message = message;
     }
 
-    public List<Datum> getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(T data) {
         this.data = data;
     }
 }
